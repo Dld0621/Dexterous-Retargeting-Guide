@@ -9,7 +9,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python" alt="Python"></a>
   <a href="https://pytorch.org"><img src="https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=flat-square&logo=pytorch" alt="PyTorch"></a>
-  <a href="docs/07-key-papers.md"><img src="https://img.shields.io/badge/Papers-25+-blueviolet?style=flat-square" alt="Papers"></a>
+  <a href="docs/07-key-papers.md"><img src="https://img.shields.io/badge/Papers-20-blueviolet?style=flat-square" alt="Papers"></a>
   <a href="examples/evaluation_framework.py"><img src="https://img.shields.io/badge/Benchmark-5_methods-orange?style=flat-square" alt="Benchmark"></a>
 </p>
 
@@ -100,7 +100,7 @@ Dexterous-Retargeting-Guide/
 │   ├── 04-optimization-methods.md     # 优化方法深入（Jacobian、阻尼 LS）
 │   ├── 05-learning-based-methods.md   # 基于学习的方法（NN、Diffusion）
 │   ├── 06-evaluation-metrics.md       # 评估指标与基准
-│   └── 07-key-papers.md               # 25+ 篇关键论文导读
+│   └── 07-key-papers.md               # 20 篇关键论文导读
 ├── tutorials/                         # 4 阶段教程
 │   ├── 01-fk-ik-basics/              # 正逆运动学基础
 │   ├── 02-rule-based-retargeting/    # Rule-based 方法实践
