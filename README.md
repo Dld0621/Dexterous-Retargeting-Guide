@@ -9,7 +9,8 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python" alt="Python"></a>
   <a href="https://pytorch.org"><img src="https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=flat-square&logo=pytorch" alt="PyTorch"></a>
-  <a href="docs/07-key-papers.md"><img src="https://img.shields.io/badge/Papers-15+-blueviolet?style=flat-square" alt="Papers"></a>
+  <a href="docs/07-key-papers.md"><img src="https://img.shields.io/badge/Papers-25+-blueviolet?style=flat-square" alt="Papers"></a>
+  <a href="examples/evaluation_framework.py"><img src="https://img.shields.io/badge/Benchmark-5_methods-orange?style=flat-square" alt="Benchmark"></a>
 </p>
 
 ---
@@ -18,25 +19,32 @@
 
 **IK Retargeting** 是将源运动（如人手）映射到目标运动（如机器人灵巧手）的技术，是具身智能中人-机遥操作的核心环节。本项目系统整理 IK Retargeting 的完整知识体系：
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    具身智能技术栈                         │
-│                                                         │
-│  ┌──────────┐    ┌──────────────┐    ┌───────────────┐  │
-│  │  视觉捕捉  │    │  Retargeting │    │   机器人控制   │  │
-│  │ 21点坐标  │    │  Rule-based  │    │   关节角度     │  │
-│  │ 弯曲/外展角│    │  Optimization│    │   末端位姿     │  │
-│  │ 局部坐标系 │    │  Learning    │    │   力矩控制     │  │
-│  └──────────┘    └──────────────┘    └───────────────┘  │
-│         ↕               ↕                   ↕         │
-│         └──────────── Retargeting ────────────┘         │
-│                                                         │
-│  ├─ 正/逆运动学 (FK/IK)                                  │
-│  ├─ 动作表示 (关节角 / 末端位姿 / delta / chunking)      │
-│  ├─ 映射方法 (直接映射 / 向量优化 / 深度学习)             │
-│  └─ 评估指标 (关节误差 / 指尖误差 / 手势相似度)           │
-└─────────────────────────────────────────────────────────────┘
-```
+<table align="center">
+<tr><td colspan="3" align="center"><b>IK Retargeting Pipeline</b></td></tr>
+<tr>
+<td align="center" width="30%">
+<b>人手视觉捕捉</b><br>
+21点坐标<br>
+弯曲/外展角<br>
+局部坐标系
+</td>
+<td align="center" width="30%">
+<b>Retargeting</b><br>
+Rule-based<br>
+Optimization<br>
+Learning-based
+</td>
+<td align="center" width="30%">
+<b>机器人控制</b><br>
+关节角度<br>
+末端位姿<br>
+力矩控制
+</td>
+</tr>
+<tr><td colspan="3" align="center">
+<b>基础知识</b>: 正/逆运动学 (FK/IK) · 动作表示 · 映射方法 · 评估指标
+</td></tr>
+</table>
 
 ---
 
@@ -75,7 +83,8 @@
 | **Stage 1** | FK/IK 基础 | 理解关节链、正逆运动学、Jacobian | `fk_ik_demo.py` | 0.5-1 天 |
 | **Stage 2** | Rule-based Retargeting | 角度映射、分段线性、关节限位 | `landmark_to_joint.py` | 1 天 |
 | **Stage 3** | Vector Optimization | scipy 优化、任务空间 IK、拇指校准 | `minimal_retargeting.py` | 1-2 天 |
-| **Stage 4** | 完整 Pipeline | 视觉捕捉 → 坐标转换 → Retargeting → 仿真 | `hand_tracking_demo.py` | 2-3 天 |
+| **Stage 4** | 完整 Pipeline | 视觉捕捉 → 坐标转换 → Retargeting → 仿真 | `landmark_to_joint.py` + `finger_chain_3d.py` | 2-3 天 |
+| **Stage 5** | 评估与对比 | 定量评估框架、多种方法基准对比 | `evaluation_framework.py` | 1 天 |
 | **进阶** | Learning-based | NN 映射、Diffusion Policy、端到端学习 | `docs/05-learning-based-methods.md` | 2-3 天 |
 
 ---
@@ -91,16 +100,18 @@ Dexterous-Retargeting-Guide/
 │   ├── 04-optimization-methods.md     # 优化方法深入（Jacobian、阻尼 LS）
 │   ├── 05-learning-based-methods.md   # 基于学习的方法（NN、Diffusion）
 │   ├── 06-evaluation-metrics.md       # 评估指标与基准
-│   └── 07-key-papers.md               # 15+ 篇关键论文导读
+│   └── 07-key-papers.md               # 25+ 篇关键论文导读
 ├── tutorials/                         # 4 阶段教程
 │   ├── 01-fk-ik-basics/              # 正逆运动学基础
 │   ├── 02-rule-based-retargeting/    # Rule-based 方法实践
 │   ├── 03-vector-optimization/       # 向量优化方法
 │   └── 04-landmark-pipeline/         # 21 点 landmark 完整流程
-├── examples/                          # 3 个可运行示例
-│   ├── minimal_retargeting.py        # 最简化 retargeting 演示
-│   ├── fk_ik_demo.py                 # 正逆运动学动画
-│   └── landmark_to_joint.py          # 21 点 → 关节角映射
+├── examples/                          # 5 个可运行示例
+│   ├── fk_ik_demo.py                 # 2D 正逆运动学动画
+│   ├── finger_chain_3d.py            # 3D 手指链 FK/IK（DH 参数）
+│   ├── landmark_to_joint.py          # 21 点 → 关节角 Rule-based 映射
+│   ├── minimal_retargeting.py        # 三种 retargeting 方法对比
+│   └── evaluation_framework.py       # 综合评估框架 + 基准对比
 ├── setup/environment.yml             # Conda 环境
 └── resources/README.md               # 数据集/工具/机器人模型索引
 ```
@@ -115,13 +126,22 @@ cd Dexterous-Retargeting-Guide
 conda env create -f setup/environment.yml && conda activate retargeting
 
 # Stage 1: FK/IK 基础（无需 GPU）
-python examples/fk_ik_demo.py --target 0.5,0.3
+python examples/fk_ik_demo.py --mode fk
+python examples/fk_ik_demo.py --mode ik
+python examples/finger_chain_3d.py --mode fk   # 3D 手指链
 
 # Stage 2: Rule-based retargeting
-python examples/landmark_to_joint.py --hand left
+python examples/landmark_to_joint.py --hand right --gesture open
+python examples/landmark_to_joint.py --hand left --gesture fist
 
-# Stage 3: Vector optimization
-python examples/minimal_retargeting.py --method optimization
+# Stage 3: 三种方法对比
+python examples/minimal_retargeting.py --method compare
+
+# Stage 4: 3D IK 求解
+python examples/finger_chain_3d.py --mode ik
+
+# Stage 5: 综合评估 + 基准对比
+python examples/evaluation_framework.py --method all --n_samples 100
 ```
 
 ---
