@@ -18,21 +18,50 @@
 
 **IK Retargeting** 是将源运动（如人手）映射到目标运动（如机器人灵巧手）的技术，是具身智能中人-机遥操作的核心环节。本项目系统整理 IK Retargeting 的完整知识体系：
 
-```
-┌────────────────────────────────────────────┐
-│           IK Retargeting 知识架构            │
-│                                            │
-│  人手视觉捕捉 → 特征提取 → Retargeting → 机器人控制 │
-│       │            │            │           │
-│   MediaPipe     21点坐标     Rule-based   关节角度  │
-│   InterHand    弯曲/外展角  Optimization 末端位姿  │
-│   Leap Motion  局部坐标系   Learning-based 力矩控制 │
-│                                            │
-│  ├─ 正/逆运动学 (FK/IK)                     │
-│  ├─ 动作表示 (关节角/末端位姿/delta/chunking) │
-│  ├─ 映射方法 (直接映射/向量优化/深度学习)      │
-│  └─ 评估指标 (关节误差/指尖误差/手势相似度)    │
-└────────────────────────────────────────────┘
+```mermaid
+graph LR
+    subgraph Capture["人手视觉捕捉"]
+        A1[MediaPipe]
+        A2[InterHand]
+        A3[Leap Motion]
+    end
+
+    subgraph Feature["特征提取"]
+        B1[21点坐标]
+        B2[弯曲/外展角]
+        B3[局部坐标系]
+    end
+
+    subgraph Retarget["Retargeting"]
+        C1[Rule-based]
+        C2[Optimization]
+        C3[Learning-based]
+    end
+
+    subgraph Control["机器人控制"]
+        D1[关节角度]
+        D2[末端位姿]
+        D3[力矩控制]
+    end
+
+    Capture --> Feature --> Retarget --> Control
+
+    subgraph Fundamentals["基础知识"]
+        E1[正/逆运动学 FK/IK]
+        E2[动作表示 关节角/末端位姿/delta/chunking]
+    end
+
+    subgraph Methods["映射方法"]
+        F1[直接映射]
+        F2[向量优化]
+        F3[深度学习]
+    end
+
+    subgraph Evaluation["评估指标"]
+        G1[关节误差]
+        G2[指尖误差]
+        G3[手势相似度]
+    end
 ```
 
 ---
