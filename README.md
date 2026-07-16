@@ -179,7 +179,7 @@ python examples/evaluation_framework.py --method all --n_samples 100
 ## 相关项目
 
 - [Embodied-AI-Paper-Analysis](https://github.com/Dld0621/Embodied-AI-Paper-Analysis) — 具身智能论文体系化梳理
-- [VLA-Zero-to-Hero](https://github.com/Dld0621/VLA-Zero-to-Hero) — VLA / RL / 世界模型入门指南
+- [Embodied-AI-Zero-to-Hero](https://github.com/Dld0621/Embodied-AI-Zero-to-Hero) — VLA / RL / 世界模型入门指南
 - [RobotDev-Setup-Guide](https://github.com/Dld0621/RobotDev-Setup-Guide) — 机器人开发环境搭建
 
 ---
