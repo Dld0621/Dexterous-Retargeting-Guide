@@ -51,17 +51,17 @@
 
 | 主题 | 子方向 | 关键技术 | 学习资源 |
 |------|--------|---------|---------|
-| **基础** | 正运动学 | DH 参数、变换矩阵、关节链 | `tutorials/01-fk-ik-basics/` |
-| | 逆运动学 | 解析法、数值法、Jacobian、阻尼最小二乘 | `tutorials/01-fk-ik-basics/` |
-| | 动作表示 | 关节角、末端位姿、delta、action chunking | `docs/01-what-is-ik-retargeting.md` |
-| **人手捕捉** | 视觉检测 | MediaPipe、InterHand、YOLO-pose | `tutorials/04-landmark-pipeline/` |
-| | 关键点定义 | 21 点模型、MCP/PIP/DIP、弯曲角/外展角 | `docs/03-human-hand-to-robot-hand.md` |
-| | 坐标系处理 | 手腕原点、局部坐标、左右手镜像 | `docs/03-human-hand-to-robot-hand.md` |
-| **Retargeting** | Rule-based | 角度映射、分段线性、关节限位 | `tutorials/02-rule-based-retargeting/` |
-| | Optimization | scipy least_squares、向量优化、任务空间 IK | `tutorials/03-vector-optimization/` |
-| | Learning-based | NN 映射、VAE、Diffusion Policy | `docs/05-learning-based-methods.md` |
-| **评估** | 精度指标 | 关节误差、指尖误差、手势相似度 | `docs/06-evaluation-metrics.md` |
-| | 工程问题 | 振荡抑制、插值失真、Sim-to-Real | `docs/03-human-hand-to-robot-hand.md` |
+| **基础** | 正运动学 | DH 参数、变换矩阵、关节链 | [FK/IK 教程](tutorials/01-fk-ik-basics/README.md) |
+| | 逆运动学 | 解析法、数值法、Jacobian、阻尼最小二乘 | [FK/IK 教程](tutorials/01-fk-ik-basics/README.md) |
+| | 动作表示 | 关节角、末端位姿、delta、action chunking | [Retargeting 概念](docs/01-what-is-ik-retargeting.md) |
+| **人手捕捉** | 视觉检测 | MediaPipe、InterHand、YOLO-pose | [Landmark Pipeline](tutorials/04-landmark-pipeline/README.md) |
+| | 关键点定义 | 21 点模型、MCP/PIP/DIP、弯曲角/外展角 | [人手→机器人手映射](docs/03-human-hand-to-robot-hand.md) |
+| | 坐标系处理 | 手腕原点、局部坐标、左右手镜像 | [人手→机器人手映射](docs/03-human-hand-to-robot-hand.md) |
+| **Retargeting** | Rule-based | 角度映射、分段线性、关节限位 | [Rule-based 教程](tutorials/02-rule-based-retargeting/README.md) |
+| | Optimization | scipy least_squares、向量优化、任务空间 IK | [Vector Optimization 教程](tutorials/03-vector-optimization/README.md) |
+| | Learning-based | NN 映射、VAE、Diffusion Policy | [Retargeting 方法分类](docs/02-retargeting-taxonomy.md) |
+| **评估** | 精度指标 | 关节误差、指尖误差、手势相似度 | [方法分类体系](docs/02-retargeting-taxonomy.md) |
+| | 工程问题 | 振荡抑制、插值失真、Sim-to-Real | [人手→机器人手映射](docs/03-human-hand-to-robot-hand.md) |
 
 ---
 
