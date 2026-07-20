@@ -83,9 +83,10 @@ Learning-based
 | **Stage 1** | FK/IK 基础 | 理解关节链、正逆运动学、Jacobian | `fk_ik_demo.py` | 0.5-1 天 |
 | **Stage 2** | Rule-based Retargeting | 角度映射、分段线性、关节限位 | `landmark_to_joint.py` | 1 天 |
 | **Stage 3** | Vector Optimization | scipy 优化、任务空间 IK、拇指校准 | `minimal_retargeting.py` | 1-2 天 |
-| **Stage 4** | 完整 Pipeline | 视觉捕捉 → 坐标转换 → Retargeting → 仿真 | `landmark_to_joint.py` + `finger_chain_3d.py` | 2-3 天 |
+| **Stage 4** | 完整 Pipeline 0→1 | 视觉捕捉 → 坐标转换 → Retargeting → 仿真，含优化过程与工程踩坑 | `complete_retargeting_pipeline.py` | 2-3 天 |
 | **Stage 5** | 评估与对比 | 定量评估框架、多种方法基准对比 | `evaluation_framework.py` | 1 天 |
 | **进阶** | Learning-based | NN 映射、Diffusion Policy、端到端学习 | `docs/05-learning-based-methods.md` | 2-3 天 |
+| **实战** | 开源项目复现 | AnyTeleop、HaMeR、LEAP Hand、DexPilot 等 8 个项目 | `docs/08-open-source-projects.md` | 持续 |
 
 ---
 
@@ -93,25 +94,28 @@ Learning-based
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 7 本核心文档
+├── docs/                              # 8 本核心文档
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
 │   ├── 02-retargeting-taxonomy.md     # 方法分类体系（Rule / Opt / Learning）
 │   ├── 03-human-hand-to-robot-hand.md # 人手→机器人手映射详解
 │   ├── 04-optimization-methods.md     # 优化方法深入（Jacobian、阻尼 LS）
 │   ├── 05-learning-based-methods.md   # 基于学习的方法（NN、Diffusion）
 │   ├── 06-evaluation-metrics.md       # 评估指标与基准
-│   └── 07-key-papers.md               # 20 篇关键论文导读
-├── tutorials/                         # 4 阶段教程
+│   ├── 07-key-papers.md               # 20 篇关键论文导读
+│   └── 08-open-source-projects.md     # 8 个优质开源项目复现指南
+├── tutorials/                         # 5 阶段教程
 │   ├── 01-fk-ik-basics/              # 正逆运动学基础
 │   ├── 02-rule-based-retargeting/    # Rule-based 方法实践
 │   ├── 03-vector-optimization/       # 向量优化方法
-│   └── 04-landmark-pipeline/         # 21 点 landmark 完整流程
-├── examples/                          # 5 个可运行示例
+│   ├── 04-landmark-pipeline/         # 21 点 landmark 完整流程
+│   └── 05-complete-pipeline/         # 0→1 完整 Pipeline（含优化过程与前因后果）
+├── examples/                          # 6 个可运行示例
 │   ├── fk_ik_demo.py                 # 2D 正逆运动学动画
 │   ├── finger_chain_3d.py            # 3D 手指链 FK/IK（DH 参数）
 │   ├── landmark_to_joint.py          # 21 点 → 关节角 Rule-based 映射
 │   ├── minimal_retargeting.py        # 三种 retargeting 方法对比
-│   └── evaluation_framework.py       # 综合评估框架 + 基准对比
+│   ├── evaluation_framework.py       # 综合评估框架 + 基准对比
+│   └── complete_retargeting_pipeline.py  # 完整 0→1 Pipeline（合成数据，无需摄像头）
 ├── setup/environment.yml             # Conda 环境
 └── resources/README.md               # 数据集/工具/机器人模型索引
 ```
@@ -140,7 +144,10 @@ python examples/minimal_retargeting.py --method compare
 # Stage 4: 3D IK 求解
 python examples/finger_chain_3d.py --mode ik
 
-# Stage 5: 综合评估 + 基准对比
+# Stage 5: 完整 Pipeline 0→1（合成数据，覆盖全部 7 个步骤 + 优化过程）
+python examples/complete_retargeting_pipeline.py --method all --visualize
+
+# Stage 6: 综合评估 + 基准对比
 python examples/evaluation_framework.py --method all --n_samples 100
 ```
 
@@ -173,6 +180,56 @@ python examples/evaluation_framework.py --method all --n_samples 100
 | O10/OmniHand | 机器人 | 10-DOF 主动关节灵巧手 |
 | Shadow Hand | 机器人 | 20-DOF 类人灵巧手 |
 | Leap Motion | 传感器 | 深度手部追踪设备 |
+
+---
+
+## 优质开源项目（推荐复现）
+
+> 精选 8 个可直接复现的开源项目，覆盖视觉遥操作、手部 mesh 恢复、低成本灵巧手、扩散策略等方向。详见 [`docs/08-open-source-projects.md`](docs/08-open-source-projects.md)。
+
+| 项目 | 方向 | 难度 | 核心学习点 |
+|------|------|------|-----------|
+| [AnyTeleop](https://github.com/dexsuite/dex-teleop) | 遥操作框架 | ⭐⭐⭐ | MediaPipe → IK Retargeting → Shadow Hand |
+| [HaMeR](https://github.com/geopavlakos/hamer) | 手部 mesh 恢复 | ⭐⭐ | 单 RGB → MANO 参数化模型 |
+| [LEAP Hand](https://github.com/leap-hand/LEAP_Hand_Sim) | 低成本灵巧手 | ⭐⭐ | 16-DOF URDF / Isaac Gym / Sim-to-Real |
+| [DexPilot](https://github.com/byte-dance/dexpilot) | 视觉遥操作 | ⭐⭐⭐⭐ | 点云直接优化，无显式 landmark |
+| [RDT-1B](https://github.com/thu-ml/RDT-1B) | 双臂扩散策略 | ⭐⭐⭐ | Diffusion Transformer + Bimanual |
+| [DexGraspNet](https://github.com/PKU-EPIC/DexGraspNet) | 灵巧抓取数据集 | ⭐⭐ | 百万级 Shadow Hand 抓取 + 物理筛选 |
+| [OpenTeleVision](https://github.com/OpenTeleVision/TeleVision) | VR 遥操作 | ⭐⭐ | Meta Quest 双目反馈 + 双臂控制 |
+| [MyoSuite](https://github.com/facebookresearch/myosuite) | 肌骨仿真+RL | ⭐⭐⭐ | 肌腱驱动人手 + 接触丰富任务 |
+
+---
+
+## 外部学习资源
+
+> 除本项目外，以下外部资源按“基础 → 进阶 → 前沿”组织，帮助你系统补全 retargeting 与机器人操作的知识体系。
+
+### 运动学与优化基础
+
+| 资源 | 类型 | 难度 | 说明 |
+|------|------|------|------|
+| [Modern Robotics (Lynch & Park)](http://hades.mech.northwestern.edu/index.php/Modern_Robotics) | 教材 | 入门 | 刚体运动学、Jacobian、开链/闭链机器人系统 |
+| [Robotics: Computational Motion Planning (Coursera)](https://www.coursera.org/learn/robotics-motion-planning) | 课程 | 入门 | A*、RRT、PRM，理解机械臂路径规划 |
+| [Pinocchio 文档](https://gepettoweb.laas.fr/doc/stack-of-tasks/pinocchio/master/doxygen-html/) | 文档 | 中等 | 高效的解析 Jacobian / 刚体动力学库 |
+| [Lecture: Jacobian and Damped Least Squares (Stanford CS327A)](https://stanford.edu/class/cs327a/lectures.html) | 讲义 | 中等 | Jacobian 转置法、DLS、可操作度，IK 核心数学 |
+
+### 灵巧手与遥操作
+
+| 资源 | 类型 | 难度 | 说明 |
+|------|------|------|------|
+| [Shadow Hand 官方文档](https://www.shadowrobot.com/dexterous-hand-series/) | 文档 | 入门 | 20-DOF 类人灵巧手的关节结构与控制接口 |
+| [Dexterous Manipulation Survey (Santello et al., 2016)](https://doi.org/10.1109/TRO.2016.2598518) | 综述 | 中等 | 人手抓取的神经控制与机器人实现 |
+| [Learning Dexterous In-Hand Manipulation (OpenAI, 2018)](https://openai.com/research/learning-dexterous-in-hand-manipulation) | 博客 | 中等 | 强化学习 + Shadow Hand 转笔的经典工作 |
+| [Teleoperation Tutorial (RSS 2023 Workshop)](https://sites.google.com/view/rss2023teleop) | 教程 | 进阶 | 遥操作最新方法：vision-based、VR、共享控制 |
+
+### 机器人学习（与 Retargeting 结合）
+
+| 资源 | 类型 | 难度 | 说明 |
+|------|------|------|------|
+| [Imitation Learning Tutorial (CoRL 2022)](https://sites.google.com/view/corl2022-il/) | 教程 | 入门 | 行为克隆、DAgger、Diffusion Policy |
+| [Diffusion Policy 官方教程](https://diffusion-policy.cs.columbia.edu/) | 教程 | 中等 | 扩散策略从原理到代码的完整教程 |
+| [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) | 代码 | 入门 | 预构建的机器人模型库（含 Shadow、Allegro、Leap） |
+| [Isaac Gym 教程](https://developer.nvidia.com/isaac-gym) | 文档 | 进阶 | NVIDIA GPU 加速仿真，大规模并行 RL 训练 |
 
 ---
 
