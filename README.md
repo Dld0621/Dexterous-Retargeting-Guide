@@ -80,6 +80,7 @@ Learning-based
 
 | 阶段 | 主题 | 目标 | 可运行代码 | 预计时间 |
 |------|------|------|-----------|---------|
+| **Stage 0** | 关节与控制基础 | 理解关节、关节角、ctrl 的区别与联系，人手 vs 机器人 | `docs/00-joint-concepts.md` | 0.5 天 |
 | **Stage 1** | FK/IK 基础 | 理解关节链、正逆运动学、Jacobian | `fk_ik_demo.py` | 0.5-1 天 |
 | **Stage 2** | Rule-based Retargeting | 角度映射、分段线性、关节限位 | `landmark_to_joint.py` | 1 天 |
 | **Stage 3** | Vector Optimization | scipy 优化、任务空间 IK、拇指校准 | `minimal_retargeting.py` | 1-2 天 |
@@ -96,7 +97,8 @@ Learning-based
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 10 本核心文档
+├── docs/                              # 11 本核心文档
+│   ├── 00-joint-concepts.md           # 关节、关节角、Ctrl 核心概念（人手 vs 机器人）
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
 │   ├── 02-retargeting-taxonomy.md     # 方法分类体系（Rule / Opt / Learning）
 │   ├── 03-human-hand-to-robot-hand.md # 人手→机器人手映射详解
@@ -169,6 +171,9 @@ python examples/evaluation_framework.py --method all --n_samples 100
 
 | 概念 | 一句话 |
 |------|--------|
+| **Joint（关节）** | 连接刚体的运动副，定义"能怎么动"（旋转/平移/球铰） |
+| **Joint Angle（关节角）** | 关节当前状态量：人手从 landmarks 计算，机器人从编码器读取 |
+| **Ctrl（控制量）** | 发给执行器的指令：position actuator 中 ctrl = 目标关节角 |
 | **Retargeting** | 将源运动（人手）映射到目标运动（机器人手） |
 | **FK** | 已知关节角 → 计算末端位置（正向） |
 | **IK** | 已知末端位置 → 求解关节角（逆向） |
