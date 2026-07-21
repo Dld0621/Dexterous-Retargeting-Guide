@@ -70,6 +70,7 @@ Learning-based
 | | 坐标系处理 | 手腕原点、局部坐标、左右手镜像 | [人手→机器人手映射](docs/03-human-hand-to-robot-hand.md) |
 | **Retargeting** | Rule-based | 角度映射、分段线性、关节限位 | [Rule-based 教程](tutorials/02-rule-based-retargeting/README.md) |
 | | Optimization | scipy least_squares、向量优化、任务空间 IK | [Vector Optimization 教程](tutorials/03-vector-optimization/README.md) |
+| | **DexMV (ECCV 2022)** | SLSQP + Huber Loss + 时序平滑，**精度最高** | [DexMV 研究指南](docs/11-dexmv-research-guide.md) |
 | | Learning-based | NN 映射、VAE、Diffusion Policy | [Retargeting 方法分类](docs/02-retargeting-taxonomy.md) |
 | **评估** | 精度指标 | 关节误差、指尖误差、手势相似度 | [方法分类体系](docs/02-retargeting-taxonomy.md) |
 | | 工程问题 | 振荡抑制、插值失真、Sim-to-Real | [人手→机器人手映射](docs/03-human-hand-to-robot-hand.md) |
@@ -87,6 +88,7 @@ Learning-based
 | **Stage 3** | Vector Optimization | scipy 优化、任务空间 IK、拇指校准 | `minimal_retargeting.py` | 1-2 天 |
 | **Stage 4** | 完整 Pipeline 0→1 | 视觉捕捉 → 坐标转换 → Retargeting → 仿真，含优化过程与工程踩坑 | `complete_retargeting_pipeline.py` | 2-3 天 |
 | **Stage 5** | 评估与对比 | 定量评估框架、多种方法基准对比 | `evaluation_framework.py` | 1 天 |
+| **Stage 6** | 高精度 IK Retargeting | DexMV 算法复现：SLSQP + Huber Loss + 时序平滑 | `examples/dexmv_style_retargeting/` | 2 天 |
 | **进阶** | Learning-based | NN 映射、Diffusion Policy、端到端学习 | `docs/05-learning-based-methods.md` | 2-3 天 |
 | **实战** | 开源项目复现 | AnyTeleop、HaMeR、LEAP Hand、DexPilot 等 8 个项目 | `docs/08-open-source-projects.md` | 持续 |
 | **硬件** | 灵巧手选型 | LEAP/ORCA/Shadow/Allegro 对比、URDF 模型 | `docs/09-dexterous-hands-analysis.md` | 1 天 |
@@ -98,7 +100,7 @@ Learning-based
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 12 本核心文档
+├── docs/                              # 13 本核心文档
 │   ├── 00-concepts-encyclopedia.md    # 全概念百科（控制理论/硬件/Sim-to-Real/传动等）
 │   ├── 00-joint-concepts.md           # 关节、关节角、Ctrl 核心概念（人手 vs 机器人）
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
@@ -110,7 +112,8 @@ Dexterous-Retargeting-Guide/
 │   ├── 07-key-papers.md               # 20 篇关键论文导读
 │   ├── 08-open-source-projects.md     # 8 个优质开源项目复现指南
 │   ├── 09-dexterous-hands-analysis.md # 开源灵巧手对比（LEAP/ORCA/Shadow/Allegro等）
-│   └── 10-manipulation-datasets.md   # 灵巧操作数据集（含灵巧手数据 + 通用操作）
+│   ├── 10-manipulation-datasets.md    # 灵巧操作数据集（含灵巧手数据 + 通用操作）
+│   └── 11-dexmv-research-guide.md     # DexMV 高精度 IK Retargeting 研究指南
 ├── datasets/                          # 数据集下载脚本
 │   └── download_datasets.py           # 自动下载 DexGraspNet/robomimic/LIBERO 等
 ├── pretrained/                        # 预训练模型 + URDF 模型
@@ -125,13 +128,17 @@ Dexterous-Retargeting-Guide/
 │   ├── 03-vector-optimization/       # 向量优化方法
 │   ├── 04-landmark-pipeline/         # 21 点 landmark 完整流程
 │   └── 05-complete-pipeline/         # 0→1 完整 Pipeline（含优化过程与前因后果）
-├── examples/                          # 6 个可运行示例
+├── examples/                          # 7 个可运行示例
 │   ├── fk_ik_demo.py                 # 2D 正逆运动学动画
 │   ├── finger_chain_3d.py            # 3D 手指链 FK/IK（DH 参数）
 │   ├── landmark_to_joint.py          # 21 点 → 关节角 Rule-based 映射
 │   ├── minimal_retargeting.py        # 三种 retargeting 方法对比
 │   ├── evaluation_framework.py       # 综合评估框架 + 基准对比
-│   └── complete_retargeting_pipeline.py  # 完整 0→1 Pipeline（合成数据，无需摄像头）
+│   ├── complete_retargeting_pipeline.py  # 完整 0→1 Pipeline（合成数据，无需摄像头）
+│   └── dexmv_style_retargeting/      # DexMV 高精度 IK Retargeting（ECCV 2022）
+│       ├── dexmv_retargeting.py      # 核心算法：SLSQP + Huber Loss
+│       ├── run_pipeline.py           # 完整 pipeline：生成数据 → 重定向 → 评估
+│       └── README.md                 # 算法详解与使用说明
 ├── setup/environment.yml             # Conda 环境
 └── resources/README.md               # 数据集/工具/机器人模型索引
 ```
@@ -165,6 +172,12 @@ python examples/complete_retargeting_pipeline.py --method all --visualize
 
 # Stage 6: 综合评估 + 基准对比
 python examples/evaluation_framework.py --method all --n_samples 100
+
+# Stage 7: DexMV 高精度 IK Retargeting（SLSQP + Huber Loss）
+cd examples/dexmv_style_retargeting
+python run_pipeline.py --model shadow --n_frames 60 --visualize
+python run_pipeline.py --model allegro --n_frames 30
+python run_pipeline.py --model leap --n_frames 30
 ```
 
 ---
