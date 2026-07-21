@@ -81,6 +81,7 @@ Learning-based
 | 阶段 | 主题 | 目标 | 可运行代码 | 预计时间 |
 |------|------|------|-----------|---------|
 | **Stage 0** | 关节与控制基础 | 理解关节、关节角、ctrl 的区别与联系，人手 vs 机器人 | `docs/00-joint-concepts.md` | 0.5 天 |
+| | **全概念百科** | 查阅所有相关概念（PD/PID/编码器/减速器/Sim-to-Real等） | `docs/00-concepts-encyclopedia.md` | 参考 |
 | **Stage 1** | FK/IK 基础 | 理解关节链、正逆运动学、Jacobian | `fk_ik_demo.py` | 0.5-1 天 |
 | **Stage 2** | Rule-based Retargeting | 角度映射、分段线性、关节限位 | `landmark_to_joint.py` | 1 天 |
 | **Stage 3** | Vector Optimization | scipy 优化、任务空间 IK、拇指校准 | `minimal_retargeting.py` | 1-2 天 |
@@ -97,7 +98,8 @@ Learning-based
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 11 本核心文档
+├── docs/                              # 12 本核心文档
+│   ├── 00-concepts-encyclopedia.md    # 全概念百科（控制理论/硬件/Sim-to-Real/传动等）
 │   ├── 00-joint-concepts.md           # 关节、关节角、Ctrl 核心概念（人手 vs 机器人）
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
 │   ├── 02-retargeting-taxonomy.md     # 方法分类体系（Rule / Opt / Learning）
