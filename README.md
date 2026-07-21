@@ -87,6 +87,8 @@ Learning-based
 | **Stage 5** | 评估与对比 | 定量评估框架、多种方法基准对比 | `evaluation_framework.py` | 1 天 |
 | **进阶** | Learning-based | NN 映射、Diffusion Policy、端到端学习 | `docs/05-learning-based-methods.md` | 2-3 天 |
 | **实战** | 开源项目复现 | AnyTeleop、HaMeR、LEAP Hand、DexPilot 等 8 个项目 | `docs/08-open-source-projects.md` | 持续 |
+| **硬件** | 灵巧手选型 | LEAP/ORCA/Shadow/Allegro 对比、URDF 模型 | `docs/09-dexterous-hands-analysis.md` | 1 天 |
+| **数据** | 操作数据集 | DexGraspNet/robomimic/DEXCap/LIBERO 等 6+ 数据集 | `docs/10-manipulation-datasets.md` | 按需 |
 
 ---
 
@@ -94,7 +96,7 @@ Learning-based
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 8 本核心文档
+├── docs/                              # 10 本核心文档
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
 │   ├── 02-retargeting-taxonomy.md     # 方法分类体系（Rule / Opt / Learning）
 │   ├── 03-human-hand-to-robot-hand.md # 人手→机器人手映射详解
@@ -102,7 +104,17 @@ Dexterous-Retargeting-Guide/
 │   ├── 05-learning-based-methods.md   # 基于学习的方法（NN、Diffusion）
 │   ├── 06-evaluation-metrics.md       # 评估指标与基准
 │   ├── 07-key-papers.md               # 20 篇关键论文导读
-│   └── 08-open-source-projects.md     # 8 个优质开源项目复现指南
+│   ├── 08-open-source-projects.md     # 8 个优质开源项目复现指南
+│   ├── 09-dexterous-hands-analysis.md # 开源灵巧手对比（LEAP/ORCA/Shadow/Allegro等）
+│   └── 10-manipulation-datasets.md   # 灵巧操作数据集（含灵巧手数据 + 通用操作）
+├── datasets/                          # 数据集下载脚本
+│   └── download_datasets.py           # 自动下载 DexGraspNet/robomimic/LIBERO 等
+├── pretrained/                        # 预训练模型 + URDF 模型
+│   ├── README.md                      # 文件清单、来源、使用说明
+│   ├── download_models.py             # HaMeR + AnyTeleop 模型自动下载（支持断点续传）
+│   ├── hamer/                         # HaMeR (CVPR 2024) 模型权重
+│   ├── anyteleop/                     # AnyTeleop (RSS 2023) + FrankMocap
+│   └── urdf/                          # Shadow Hand / Allegro / Franka / ORCA / LEAP Hand URDF
 ├── tutorials/                         # 5 阶段教程
 │   ├── 01-fk-ik-basics/              # 正逆运动学基础
 │   ├── 02-rule-based-retargeting/    # Rule-based 方法实践
