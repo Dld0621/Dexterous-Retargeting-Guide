@@ -274,6 +274,176 @@ Sim-to-Real → 真实机器人部署
 
 ---
 
+## 2026 年最新进展（后几何时代）
+
+2026 年灵巧手重定向已进入**"后几何时代"**——单纯追求 fingertip position error 最小化的方法正在被淘汰，取而代之的是综合考虑 human intent、object interaction、robot morphology 和 physics 的系统性框架。
+
+### 21. TopoRetarget: Interaction-Preserving Retargeting for Dexterous Manipulation
+
+- **论文**: *TopoRetarget: Interaction-Preserving Retargeting for Dexterous Manipulation* (2026)
+- **作者**: Jielin Wu, Shenzhe Yao, Guanqi He 等 (Hang Zhao 组)
+
+**为什么读**：从"姿态复现"转向"交互保持"的代表作，解决重定向后手-物接触关系被破坏的问题。
+
+**核心收获**：
+- 关注的不是 `p_tip^r ≈ p_tip^h`，而是保持哪根手指接触物体、接触之间的相对关系
+- 代表方向转变：pose-preserving → interaction-preserving
+- 与 morphology calibration 可直接组合：先校准几何，再保持交互
+
+---
+
+### 22. AnyDexRT: Calibration-Free Dexterous Hand Retargeting with Few-Shot Human Guidance
+
+- **论文**: *AnyDexRT: Calibration-Free Dexterous Hand Retargeting with Few-Shot Human Guidance* (2026)
+- **作者**: Chenxi Wang, Ying Feng, Cewu Lu 等 (上海交大)
+
+**为什么读**：免标定灵巧重定向的标杆，解决新操作者/新机器人需重新标定的问题。
+
+**核心收获**：
+- `calibration-free + few-shot human guidance`
+- 与显式 finger-wise scaling 方法问题层面高度相关，但方法不同（学习式 vs 参数化）
+- 说明"标定"仍是核心痛点，但解决方案正在从手工规则转向数据驱动
+
+---
+
+### 23. SPIDER: Scalable Physics-Informed Dexterous Retargeting
+
+- **论文**: *SPIDER: Scalable Physics-Informed Dexterous Retargeting* (2025)
+- **作者**: Chaoyi Pan, Changhao Wang, Haozhi Qi, Jitendra Malik 等
+
+**为什么读**：物理可行性 ≠ 运动学可行性的经典论证，解决手指穿物、接触不稳定问题。
+
+**核心收获**：
+- 大规模人手数据不能直接作为机器人参考轨迹
+- 物理约束（碰撞、力、接触）必须在重定向阶段就纳入
+- 与 DexMV 等纯几何优化方法形成直接对比
+
+---
+
+### 24. GraspGraphNet: Graph-Structured Multi-Embodiment Dexterous Grasp Generation
+
+- **论文**: *GraspGraphNet: Graph-Structured Multi-Embodiment Dexterous Grasp Generation* (2026)
+- **作者**: Yeonseo Lee, Taeyeop Lee, Hyosup Shin 等
+
+**为什么读**：跨形态灵巧手统一表示的最前沿，图结构能处理不同拓扑（三指 vs 五指）。
+
+**核心收获**：
+- 将机器人关节/连杆/接触表示为图，共享抓取模型
+- 比 finger-wise scale 更普适：能处理不同关节连接关系、actuator coupling
+- 直接在可执行空间生成，绕过 IK 和 Retargeting
+
+---
+
+### 25. UniDexTok: A Unified Dexterous Hand Tokenizer from Real Data
+
+- **论文**: *UniDexTok: A Unified Dexterous Hand Tokenizer from Real Data* (2026)
+- **作者**: Dong Fang, Youjun Wu, Yuanxin Zhong 等
+
+**为什么读**：统一灵巧手表示的尝试，提出 22-DoF 语义接口跨越不同机器人手。
+
+**核心收获**：
+- UDHM (Unified Dexterous Hand Model)：共享 22-DoF 语义空间
+- 无 Retargeting 的 tokenizer：人类和机器人手状态映射到统一表示
+- 未来愿景：`Human canonical → Shared latent → Robot-specific decoder`
+
+---
+
+### 26. DexGrasp-Zero: Morphology-Aligned Policy for Zero-Shot Cross-Embodiment Grasping
+
+- **论文**: *DexGrasp-Zero: A Morphology-Aligned Policy for Zero-Shot Cross-Embodiment Dexterous Grasping* (2026)
+- **作者**: Yuliang Wu, Yanhan Lin, Wei-Shi Zheng 等
+
+**为什么读**：直接把 morphology alignment 写入标题，代表领域对形态差距的重视。
+
+**核心收获**：
+- `morphology alignment` 从"误差因素"升级为"策略输入或对齐变量"
+- train on some hands → zero-shot transfer to unseen hands
+- 解决的不是人手差异，而是 robot embodiment A → robot embodiment B
+
+---
+
+### 27. One-Policy-Fits-All: Geometry-Aware Action Latents for Cross-Embodiment Manipulation
+
+- **论文**: *One-Policy-Fits-All: Geometry-Aware Action Latents for Cross-Embodiment Manipulation* (2026)
+- **作者**: Juncheng Mu, Sizhe Yang, Huazhe Xu, Jiangmiao Pang 等
+
+**为什么读**：跨形态机器人动作空间不一致问题的系统解决方案。
+
+**核心收获**：
+- 几何感知动作潜空间：不同机器人动作编码为共享潜变量
+- 统一 latent retargeting 解码器，无需形态特定调优
+- 方向转变：直接映射关节 → 共享几何/交互潜空间
+
+---
+
+### 28. VTAP Gripper: Synergizing Fingertip Sensing and Visuo-Tactile Active Palm
+
+- **论文**: *VTAP Gripper: Synergizing Fingertip Sensing and a Visuo-Tactile Active Palm for Dexterous In-Hand Manipulation* (2026)
+- **作者**: Yuhao Zhou, Sheeraz Athar, Yunzhu Li 等
+
+**为什么读**：阶段化、手势条件化重定向的实例，跨越人手与异构三指夹爪的形态差距。
+
+**核心收获**：
+- staged, gesture-conditioned retargeting
+- 不再假设"一个统一映射适用于所有动作"
+- pinch / enveloping grasp / in-hand manipulation 各用不同映射
+
+---
+
+### 29. Smooth Operator: Real-Time Sampling-Based Kinematic Hand Retargeting
+
+- **论文**: *Smooth Operator: A Real-Time Sampling-Based Algorithm for Kinematic Hand Retargeting* (2026)
+- **作者**: Robert Jomar Malate, Erik Bauer, Benedek Forrai 等 (ETH Zurich)
+
+**为什么读**：用采样替代梯度优化，解决实时性和稳定性问题。
+
+**核心收获**：
+- 梯度法易陷局部最优、初值敏感、快速动作下稳定性差
+- 采样方法避免抖动，提升遥操作数据质量
+- 可与 morphology-aware input 组合：你优化输入，它优化求解器
+
+---
+
+### 30. ObjRetarget: Object-Aware Motion Retargeting Framework
+
+- **论文**: *ObjRetarget: An Object-Aware Motion Retargeting Framework with Anthropomorphic Arm Constraints and Polyhedral Hand Modeling* (2026)
+- **作者**: Yuanchuan Lai, Qing Gao, Zhaojie Ju 等
+
+**为什么读**：把物体几何纳入重定向的代表作，从仅匹配人手到同时考虑手-物关系。
+
+**核心收获**：
+- 目标函数：`L_human-robot + L_hand-object + L_arm_feasibility`
+- 单独看手姿态无法保证任务有效
+- 物体感知是 morphology calibration 的自然扩展
+
+---
+
+## 推荐阅读路线图（2026 更新版）
+
+```
+入门路线：
+MediaPipe Hands → Rule-based Retargeting → O10/Shadow Hand 控制
+        ↓
+InterHand2.6M → 双手追踪 → 双手遥操作
+        ↓
+AnyTeleop/Open-TeleVision → 完整系统架构
+
+进阶路线：
+Gleicher 1998 → Aberman CVPR 2020 → Skeleton-Aware GNN
+        ↓
+Diffusion Policy → 生成模型 retargeting
+        ↓
+TopoRetarget / SPIDER → 交互保持 + 物理感知
+        ↓
+AnyDexRT / DexGrasp-Zero → 免标定 + 形态对齐
+        ↓
+GraspGraphNet / UniDexTok → 跨形态统一表示
+        ↓
+Sim-to-Real → 真实机器人部署
+```
+
+---
+
 ## 论文资源汇总
 
 | 论文 | 会议 | 方向 | 代码 | 难度 |
@@ -289,3 +459,10 @@ Sim-to-Real → 真实机器人部署
 | LEAP Hand | CoRL 2023 | 灵巧手设计 | [GitHub](https://github.com/leap-hand) | ★★☆ |
 | Diffusion Policy | 2023 | 动作生成 | [GitHub](https://github.com/real-stanford/diffusion_policy) | ★★★ |
 | DexYCB | CVPR 2021 | 抓取基准 | [项目页](https://dex-ycb.github.io/) | ★★☆ |
+| **TopoRetarget** | 2026 | 交互保持重定向 | — | ★★★ |
+| **AnyDexRT** | 2026 | 免标定灵巧重定向 | — | ★★★ |
+| **SPIDER** | 2025 | 物理感知重定向 | — | ★★★ |
+| **GraspGraphNet** | 2026 | 图结构跨形态抓取 | — | ★★★ |
+| **UniDexTok** | 2026 | 统一灵巧手 Tokenizer | — | ★★★ |
+| **DexGrasp-Zero** | 2026 | 零样本跨手抓取 | — | ★★★ |
+| **One-Policy-Fits-All** | 2026 | 几何感知跨形态策略 | — | ★★★ |
