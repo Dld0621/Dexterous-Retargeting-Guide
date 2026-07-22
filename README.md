@@ -9,7 +9,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python" alt="Python"></a>
   <a href="https://pytorch.org"><img src="https://img.shields.io/badge/PyTorch-2.0+-EE4C2C?style=flat-square&logo=pytorch" alt="PyTorch"></a>
-  <a href="docs/07-key-papers.md"><img src="https://img.shields.io/badge/Papers-30-blueviolet?style=flat-square" alt="Papers"></a>
+  <a href="docs/07-key-papers.md"><img src="https://img.shields.io/badge/Papers-37-blueviolet?style=flat-square" alt="Papers"></a>
   <a href="examples/evaluation_framework.py"><img src="https://img.shields.io/badge/Benchmark-5_methods-orange?style=flat-square" alt="Benchmark"></a>
 </p>
 
@@ -117,7 +117,7 @@ Stage 10: 世界模型 ───────────────────
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 19 本核心文档
+├── docs/                              # 20 本核心文档
 │   ├── 00-concepts-encyclopedia.md    # 全概念百科（控制理论/硬件/Sim-to-Real）
 │   ├── 00-joint-concepts.md           # 关节、关节角、Ctrl 核心概念
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
@@ -126,7 +126,7 @@ Dexterous-Retargeting-Guide/
 │   ├── 04-optimization-methods.md     # 优化方法深入（Jacobian、阻尼 LS）
 │   ├── 05-learning-based-methods.md   # 基于学习的方法（NN、Diffusion）
 │   ├── 06-evaluation-metrics.md       # 评估指标与基准
-│   ├── 07-key-papers.md               # 30 篇关键论文导读（含 2026 最新进展）
+│   ├── 07-key-papers.md               # 37 篇关键论文导读（含 2026 最新进展 + 在线链接）
 │   ├── 08-open-source-projects.md     # 8 个优质开源项目复现指南
 │   ├── 09-dexterous-hands-analysis.md # 开源灵巧手对比（LEAP/ORCA/Shadow/Allegro）
 │   ├── 10-manipulation-datasets.md    # 灵巧操作数据集
@@ -136,7 +136,8 @@ Dexterous-Retargeting-Guide/
 │   ├── 14-rl-zero-to-one.md           # RL 强化学习：SAC+HER Shadow Hand
 │   ├── 15-world-model-zero-to-one.md  # 世界模型：DreamerV3 + 想象力规划
 │   ├── 16-arxiv-retargeting-scan.md   # Arxiv Retargeting 论文全景扫描（200篇→80+精选）
-│   └── 17-research-trends-and-positioning.md  # 2026 研究趋势与定位分析（后几何时代）
+│   ├── 17-research-trends-and-positioning.md  # 2026 研究趋势与定位分析（后几何时代）
+│   └── 18-frontier-papers-online.md   # 前沿论文在线资源目录（12+ 篇 arXiv/代码/项目页）
 │
 ├── examples/                          # 11 个可运行示例（全部自包含）
 │   ├── freshman_zero_to_one.py        # 大一新生 0→1：人手仿真 + DexMV 重定向
@@ -191,6 +192,7 @@ Dexterous-Retargeting-Guide/
 | **世界模型** | [`docs/15-world-model-zero-to-one.md`](docs/15-world-model-zero-to-one.md) | ⭐⭐⭐ |
 | **Arxiv 论文扫描** | [`docs/16-arxiv-retargeting-scan.md`](docs/16-arxiv-retargeting-scan.md) | 参考 |
 | **研究趋势与定位** | [`docs/17-research-trends-and-positioning.md`](docs/17-research-trends-and-positioning.md) | ⭐⭐⭐ |
+| **前沿论文在线链接** | [`docs/18-frontier-papers-online.md`](docs/18-frontier-papers-online.md) | 参考 |
 | **所有相关概念** | [`docs/00-concepts-encyclopedia.md`](docs/00-concepts-encyclopedia.md) | 参考 |
 | **Retargeting 是什么** | [`docs/01-what-is-ik-retargeting.md`](docs/01-what-is-ik-retargeting.md) | ⭐⭐ |
 | **三种方法对比** | [`docs/02-retargeting-taxonomy.md`](docs/02-retargeting-taxonomy.md) | ⭐⭐ |
