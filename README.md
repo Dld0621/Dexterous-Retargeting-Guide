@@ -117,7 +117,7 @@ Stage 10: 世界模型 ───────────────────
 
 ```
 Dexterous-Retargeting-Guide/
-├── docs/                              # 17 本核心文档
+├── docs/                              # 18 本核心文档
 │   ├── 00-concepts-encyclopedia.md    # 全概念百科（控制理论/硬件/Sim-to-Real）
 │   ├── 00-joint-concepts.md           # 关节、关节角、Ctrl 核心概念
 │   ├── 01-what-is-ik-retargeting.md   # Retargeting 核心概念与问题定义
@@ -134,7 +134,8 @@ Dexterous-Retargeting-Guide/
 │   ├── 12-freshman-zero-to-one.md     # 大一新生 0→1 实战指南
 │   ├── 13-vla-zero-to-one.md          # VLA 视觉-语言-动作模型实战
 │   ├── 14-rl-zero-to-one.md           # RL 强化学习：SAC+HER Shadow Hand
-│   └── 15-world-model-zero-to-one.md  # 世界模型：DreamerV3 + 想象力规划
+│   ├── 15-world-model-zero-to-one.md  # 世界模型：DreamerV3 + 想象力规划
+│   └── 16-arxiv-retargeting-scan.md   # Arxiv Retargeting 论文全景扫描（200篇→80+精选）
 │
 ├── examples/                          # 11 个可运行示例（全部自包含）
 │   ├── freshman_zero_to_one.py        # 大一新生 0→1：人手仿真 + DexMV 重定向
@@ -187,6 +188,7 @@ Dexterous-Retargeting-Guide/
 | **VLA 视觉-语言-动作** | [`docs/13-vla-zero-to-one.md`](docs/13-vla-zero-to-one.md) | ⭐⭐ |
 | **RL 强化学习** | [`docs/14-rl-zero-to-one.md`](docs/14-rl-zero-to-one.md) | ⭐⭐⭐ |
 | **世界模型** | [`docs/15-world-model-zero-to-one.md`](docs/15-world-model-zero-to-one.md) | ⭐⭐⭐ |
+| **Arxiv 论文扫描** | [`docs/16-arxiv-retargeting-scan.md`](docs/16-arxiv-retargeting-scan.md) | 参考 |
 | **所有相关概念** | [`docs/00-concepts-encyclopedia.md`](docs/00-concepts-encyclopedia.md) | 参考 |
 | **Retargeting 是什么** | [`docs/01-what-is-ik-retargeting.md`](docs/01-what-is-ik-retargeting.md) | ⭐⭐ |
 | **三种方法对比** | [`docs/02-retargeting-taxonomy.md`](docs/02-retargeting-taxonomy.md) | ⭐⭐ |
